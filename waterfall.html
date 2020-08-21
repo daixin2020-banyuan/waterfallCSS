@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .item{
+            font-size: 30px;
+            font-weight: 700;
+            color: aliceblue;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            width: 205px;
+            position: absolute;
+            transition: all 0.5s ease-in-out;
+        }
+        .item:hover{
+            transform: scale(1.1);
+            overflow: hidden;
+        }
+        .item-1 {
+            background-color: rosybrown;
+            height: 300px;
+        }.item-2 {
+            background-color: rgb(122, 77, 17);
+            height: 100px;
+        }.item-3 {
+            background-color: royalblue;
+            height: 350px;
+        }.item-4 {
+            background-color: salmon;
+            height: 240px;
+        }.item-5 {
+            background-color: silver;
+            height: 450px;
+        }.item-6 {
+            background-color: tomato;
+            height: 250px;
+        }.item-7 {
+            background-color: yellow;
+            height: 300px;
+        }.item-8 {
+            background-color: yellowgreen;
+            height: 380px;
+        }.item-9 {
+            background-color: violet;
+            height: 430px;
+        }.item-10 {
+            background-color: olive;
+            height: 180px;
+        }.item-11 {
+            background-color: mediumseagreen;
+            height: 200px;
+        }.item-12 {
+            background-color: mediumspringgreen;
+            height: 300px;
+        }.item-13 {
+            background-color: aqua;   
+            height: 480px;
+        }.item-14 {
+            background-color: brown;
+            height: 340px;
+        }.item-15 {
+            background-color: crimson;
+            height: 280px;
+        }.item-16 {
+            background-color: darkorange;
+            height: 300px;
+        }.item-17 {
+            background-color: deeppink;
+            height: 230px;
+        }.item-18 {
+            background-color: burlywood;
+            height: 400px;
+        }.item-19 {
+            background-color: violet;
+            height: 190px;
+        }.item-20 {
+            background-color: teal;
+            height: 250px;
+        }.item-21 {
+            background-color: seagreen ;
+            height: 320px;
+        }.item-22 {
+            background-color: sienna;
+            height: 320px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="item item-1">1</div>
+    <div class="item item-2">2</div>
+    <div class="item item-3">3</div>
+    <div class="item item-4">4</div>
+    <div class="item item-5">5</div>
+    <div class="item item-6">6</div>
+    <div class="item item-7">7</div>
+    <div class="item item-8">8</div>
+    <div class="item item-9">9</div>
+    <div class="item item-10">10</div>
+    <div class="item item-11">11</div>
+    <div class="item item-12">12</div>
+    <div class="item item-13">13</div>
+    <div class="item item-14">14</div>
+    <div class="item item-15">15</div>
+    <div class="item item-16">16</div>
+    <div class="item item-17">17</div>
+    <div class="item item-18">18</div>
+    <div class="item item-19">19</div>
+    <div class="item item-20">20</div>
+    <div class="item item-21">21</div>
+    <div class="item item-22">22</div>
+
+</body>
+
+<script>
+
+    let items = document.getElementsByClassName('item')
+
+    let gap = 20;
+
+    waterFall();
+    
+    function waterFall(){
+        
+        let pageWidth = window.innerWidth;
+        // console.log('pagewidth',pageWidth)
+        let itemWidth = items[0].offsetWidth;
+        // console.log('itemWidth',itemWidth)
+        let columns = parseInt(pageWidth / (itemWidth + gap));
+        // console.log('columns',columns)
+        let arr = [];
+        for(let i = 0 ; i < items.length;i++){
+            //确定第一行，能放下去多少个，并把高度存到数组里
+            if (i < columns){
+                items[i].style.top = 0;
+                items[i].style.left =(itemWidth + gap) * i + 'px';
+                arr.push(items[i].offsetHeight);
+                // console.log('arr===>',arr)
+                //arr===> (6) [300, 100, 350, 240, 450, 250]
+            }
+            else{
+                //其他行，先找除最小高度列，和索引
+                //找出现再页面中，最最小的高度
+                let minHeight = arr[0];
+                let index = 0;
+                for(let j = 0 ; j < arr.length ; j++){
+                    if(minHeight > arr[j]){
+                        minHeight = arr[j];
+                        index = j;
+                    }
+                }
+                items[i].style.top = arr[index] + gap + 'px';
+                items[i].style.left = items[index].offsetLeft + 'px';
+                arr[index] = arr[index] + items[i].offsetHeight + gap;
+            }
+            // console.log('arr',arr)
+    }
+    }
+
+    window.onresize = function(){
+        waterFall();
+    }
+</script>
+</html>
